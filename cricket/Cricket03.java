@@ -24,9 +24,26 @@ public class Cricket03 {
                 new CricketTeam(15, "UAE", 20, 0, 16, 4, 2600, 3800, -1200, 12),
                 new CricketTeam(16, "Kenya", 20, 0, 0, 20, 2000, 4500, -2500, 0));
 
-        OptionalInt minPoints = teams.stream().mapToInt(CricketTeam::getPoints).min();
-        minPoints.ifPresentOrElse(
-                value -> System.out.printf("Lowest number of points is %d\n", value),
+        // Sequential execution
+        long startTimeSequential = System.currentTimeMillis();
+        OptionalInt minPointsSequential = teams.stream().mapToInt(CricketTeam::getPoints).min();
+        long endTimeSequential = System.currentTimeMillis();
+
+        minPointsSequential.ifPresentOrElse(
+                value -> System.out.printf("Lowest number of points (sequential) is %d\n", value),
                 () -> System.out.println("No teams in the dataset"));
+
+        System.out.printf("Sequential execution time: %d milliseconds\n", endTimeSequential - startTimeSequential);
+
+        // Parallel execution
+        long startTimeParallel = System.currentTimeMillis();
+        OptionalInt minPointsParallel = teams.parallelStream().mapToInt(CricketTeam::getPoints).min();
+        long endTimeParallel = System.currentTimeMillis();
+
+        minPointsParallel.ifPresentOrElse(
+                value -> System.out.printf("Lowest number of points (parallel) is %d\n", value),
+                () -> System.out.println("No teams in the dataset"));
+
+        System.out.printf("Parallel execution time: %d milliseconds\n", endTimeParallel - startTimeParallel);
     }
 }

@@ -25,10 +25,18 @@ public class Cricket02 {
 
         // Process using sequential stream
         System.out.println("Sequential Stream:");
+        long startTimeSequential = System.currentTimeMillis();
         teams.stream().forEach(x -> System.out.println(x));
+        long endTimeSequential = System.currentTimeMillis();
+        long durationSequential = endTimeSequential - startTimeSequential;
+        System.out.println("Sequential Stream Time: " + durationSequential + " milliseconds");
 
         // Process using parallel stream
         System.out.println("\nParallel Stream:");
+        long startTimeParallel = System.currentTimeMillis();
         teams.parallelStream().forEach(System.out::println);
+        long endTimeParallel = System.currentTimeMillis();
+        long durationParallel = endTimeParallel - startTimeParallel;
+        System.out.println("Parallel Stream Time: " + durationParallel + " milliseconds");
     }
 }

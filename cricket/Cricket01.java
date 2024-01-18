@@ -23,6 +23,22 @@ public class Cricket01 {
                 new CricketTeam(15, "UAE", 20, 0, 16, 4, 2600, 3800, -1200, 12),
                 new CricketTeam(16, "Kenya", 20, 0, 0, 20, 2000, 4500, -2500, 0));
 
+        // Run in Sequential mode
+        long startTimeSeq = System.currentTimeMillis();
         teams.forEach(x -> System.out.println(x));
+        long endTimeSeq = System.currentTimeMillis();
+        System.out.println("Sequential Time: " + (endTimeSeq - startTimeSeq) + " ms");
+
+        // Run in Stream mode
+        long startTimeStream = System.currentTimeMillis();
+        teams.stream().forEach(x -> System.out.println(x));
+        long endTimeStream = System.currentTimeMillis();
+        System.out.println("Stream Time: " + (endTimeStream - startTimeStream) + " ms");
+
+        // Run in Parallel mode
+        long startTimeParallel = System.currentTimeMillis();
+        teams.parallelStream().forEach(x -> System.out.println(x));
+        long endTimeParallel = System.currentTimeMillis();
+        System.out.println("Parallel Time: " + (endTimeParallel - startTimeParallel) + " ms");
     }
 }
